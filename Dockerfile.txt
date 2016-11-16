@@ -1,0 +1,17 @@
+# Completar lista com Ip dos atacantes.
+
+FROM glanf/base
+MAINTAINER Rodrigo Jantsch
+
+RUN apt-get update
+RUN apt-get install -y \
+    python \ 
+    scapy \
+    tcpdump  
+
+RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
+
+ENTRYPOINT ifinit && \
+        brinit && \       
+        iptables -A FORWARD -d 10.0.0.01/32 -j DROP && \       	
+        /bin/bash
